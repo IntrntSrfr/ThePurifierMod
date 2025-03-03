@@ -1,0 +1,3 @@
+displayName = Learning
+author = 0xintr
+version = 0.1
