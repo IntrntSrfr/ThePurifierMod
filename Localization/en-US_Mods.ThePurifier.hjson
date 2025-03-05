@@ -2,12 +2,17 @@
 
 Items: {
 	TheSwoerd: {
-		DisplayName: "The Swoerd"
+		DisplayName: The Swoerd
 		Tooltip:
 			'''
 			Template of an item
 			Replacing this tooltip is duty 
 			It's snowing on Mt.Fuji
 			'''
+	}
+
+	TheSwoerdTwo: {
+		DisplayName: The Swoerd Two
+		Tooltip: ""
 	}
 }
