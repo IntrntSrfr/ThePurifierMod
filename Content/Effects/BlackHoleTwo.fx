@@ -1,36 +1,36 @@
 sampler2D uImage0 : register(s0);
-float2 uScreenResolution;       // screen width and height (in pixels)
-float2 uScreenPosition;
-// Note: We replace uPlayerScreenPosition with uTargetPosition for consistency,
-// but you can keep the original name if preferred.
-float2 uTargetPosition;         
-float uTime;                    // time, if you need it for animations
+float2 uScreenResolution;   // Screen resolution in pixels (e.g., 1920x1080)
+float2 uScreenPosition;     // World coordinate of the screen's top-left (typically Main.screenPosition)
+float2 uTargetPosition;     // World coordinate where the effect is centered (e.g., projectile.Center)
+float uIntensity;           // Strength of the lensing effect (e.g., 0.2 for subtle pull)
+float uRadius;              // Radius (in pixels) over which the effect is applied
 
-float4 BlackHoleLensingPS(float4 position : SV_POSITION, float2 coords : TEXCOORD0) : COLOR0
+float4 BlackHoleLensingPS(float2 coords : TEXCOORD0) : COLOR0
 {
 
+    float4 color = tex2D(uImage0, coords);
+    color.r = saturate(color.r + 0.9);
+    return color;
+/* 
     float2 targetCoords = (uTargetPosition - uScreenPosition) / uScreenResolution;
     float2 centreCoords = (coords - targetCoords) * (uScreenResolution / uScreenResolution.y);
-
-    // Calculate distance and angle from the black hole center.
-    float radius = length(centreCoords - targetCoords);
-    float angle = atan2(centreCoords.y - targetCoords.y, centreCoords.x - targetCoords.x);
     
-    // How much the light is bent.
-    float bend = 0.01 / radius;
+    // Compute the distance (in pixels) from the current pixel to the target.
+    float d = length(centreCoords - targetCoords);
     
-    // Apply the lensing effect.
-    centreCoords += -bend * float2(cos(angle), sin(angle));
-    
-    // Sample the scene texture.
-    float4 col = tex2D(uImage0, centreCoords);
-    
-    // Darken the area based on bending (simulate the black hole’s center).
-    col *= smoothstep(1.0, 0.9, bend);
-    
-    col = lerp(float4(0.0, 0.0, 0.0, 0.0), col, smoothstep(0.05, 0.055, radius));
-    
-    return col;
+    // If within the effect radius, apply the lensing distortion.
+    if (d < uRadius)
+    {
+        float4 color = tex2D(uImage0, coords);
+        color.r = saturate(color.g + 0.5);
+        return color;
+    }
+    else
+    {
+        float4 color = tex2D(uImage0, coords);
+        color.r = saturate(color.r + 0.5);
+        return color;
+    } */
 }
 
 technique Technique1

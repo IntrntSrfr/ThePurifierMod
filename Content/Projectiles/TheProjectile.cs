@@ -28,22 +28,26 @@ namespace ThePurifier.Content.Projectiles
 
         public override void AI()
         {
-            if (Main.netMode != NetmodeID.Server && !Filters.Scene["ThePurifier:BlackHoleTwo"].IsActive())
+            var filter = Filters.Scene["ThePurifier:BlackHole"];
+            var shader = Filters.Scene["ThePurifier:BlackHole"].GetShader();
+
+            if (Main.netMode != NetmodeID.Server && !Filters.Scene["ThePurifier:BlackHole"].IsActive())
             {
-                Main.NewText("Activating BlackHoleTwo");
-                Filters.Scene.Activate("ThePurifier:BlackHoleTwo", Projectile.Center).GetShader().UseTargetPosition(Projectile.Center);
+                Main.NewText("Activating BlackHole");
+                Filters.Scene["ThePurifier:BlackHole"].GetShader().UseTargetPosition(Projectile.Center);
+                Filters.Scene.Activate("ThePurifier:BlackHole", Projectile.Center);
             } 
             else
             {
-                Filters.Scene["ThePurifier:BlackHoleTwo"].GetShader().UseTargetPosition(Projectile.Center);
-            }
+                shader.UseTargetPosition(Projectile.Center);
+            } 
         }
 
         public override void OnKill(int timeLeft)
         {
-            if (Main.netMode != NetmodeID.Server && Filters.Scene["ThePurifier:BlackHoleTwo"].IsActive())
+            if (Main.netMode != NetmodeID.Server && Filters.Scene["ThePurifier:BlackHole"].IsActive())
             {
-                Filters.Scene["ThePurifier:BlackHoleTwo"].Deactivate();
+                Filters.Scene["ThePurifier:BlackHole"].Deactivate();
             }
         } 
     } 

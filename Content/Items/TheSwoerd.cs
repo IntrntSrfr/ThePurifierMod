@@ -42,9 +42,10 @@ namespace ThePurifier.Content.Items
                     return base.UseItem(player);
                 }
 
+                Main.NewText("Activating BlackHole");
+
                 var shader = Filters.Scene["ThePurifier:BlackHole"].GetShader();
-                shader.Shader.Parameters["uPlayerScreenPosition"].SetValue(new Vector2(Main.screenWidth,Main.screenHeight));
-                shader.Shader.Parameters["uScreenResolution"].SetValue(new Vector2(Main.screenWidth, Main.screenHeight));
+                shader.UseTargetPosition(player.position);
                 Filters.Scene.Activate("ThePurifier:BlackHole");
                 
             }
