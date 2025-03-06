@@ -26,15 +26,17 @@ namespace ThePurifier
                 return;
             }
 
+            Asset<Effect> shockwaveShader = Assets.Request<Effect>("Content/Effects/Shockwave");
+            Filters.Scene["ThePurifier:Shockwave"] = new Filter(new ScreenShaderData(shockwaveShader, "ShockwavePass"), EffectPriority.VeryHigh);
+            Filters.Scene["ThePurifier:Shockwave"].Load();
             
             Asset<Effect> theShader = Assets.Request<Effect>("Content/Effects/TintRed");
             Filters.Scene["ThePurifier:TintRed"] = new Filter(new ScreenShaderData(theShader, "TintRedPass"), EffectPriority.VeryHigh);
             Filters.Scene["ThePurifier:TintRed"].Load();
-           
 
-            Asset<Effect> blackHoleShader = Assets.Request<Effect>("Content/Effects/BlackHole");
-            Filters.Scene["ThePurifier:BlackHole"] = new Filter(new ScreenShaderData(blackHoleShader, "BlackHolePass"), EffectPriority.VeryHigh);
-            Filters.Scene["ThePurifier:BlackHole"].Load();
+            Asset<Effect> blackHoleShader = Assets.Request<Effect>("Content/Effects/BlackHoleTwo");
+            Filters.Scene["ThePurifier:BlackHoleTwo"] = new Filter(new ScreenShaderData(blackHoleShader, "BlackHolePass"), EffectPriority.VeryHigh);
+            Filters.Scene["ThePurifier:BlackHoleTwo"].Load();
             
             
             Main.NewText("Hello from ThePurifier");
@@ -45,6 +47,4 @@ namespace ThePurifier
             base.Unload();
         }
     }
-
-
 }

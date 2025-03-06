@@ -19,7 +19,7 @@ float4 BlackHoleLensingPS(float2 coords : TEXCOORD0) : COLOR0
     float angle = atan2(uv.y - pos.y, uv.x - pos.x);
     
     // How much the light is bent.
-    float bend = 0.005 / radius;
+    float bend = 0.01 / radius;
     
     // Apply the lensing effect.
     uv += -bend * float2(cos(angle), sin(angle));
@@ -31,7 +31,11 @@ float4 BlackHoleLensingPS(float2 coords : TEXCOORD0) : COLOR0
     col *= smoothstep(1.0, 0.9, bend);
 
     // A little extra fade toward the right.
-    col *= smoothstep(1.0, 0.0, uv.x);
+
+    // col = mix(vec4(0.0), col, smoothstep(0.05, 0.055, radius));
+    // convert above to HLSL
+
+    col = lerp(float4(0.0, 0.0, 0.0, 0.0), col, smoothstep(0.05, 0.055, radius));
 
     return col;
 }

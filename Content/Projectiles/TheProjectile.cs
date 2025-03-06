@@ -6,16 +6,17 @@ using Terraria.Graphics.Effects;
 using Terraria.ID;
 
 namespace ThePurifier.Content.Projectiles
-{/*
-    public class DistortionProjectile : ModProjectile
+{
+    public class TheProjectile : ModProjectile
     { 
         public override void SetDefaults()
         {
-            Projectile.width = 4;
-            Projectile.height = 4;
+            Projectile.width = 50;
+            Projectile.height = 50;
             Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 60;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
         }
@@ -27,38 +28,23 @@ namespace ThePurifier.Content.Projectiles
 
         public override void AI()
         {
-            // ai[0] = state
-            // 0 = unexploded
-            // 1 = exploded
-
-            if (projectile.timeLeft <= 180)
+            if (Main.netMode != NetmodeID.Server && !Filters.Scene["ThePurifier:BlackHoleTwo"].IsActive())
             {
-                if (projectile.ai[0] == 0)
-                {
-                    projectile.ai[0] = 1; // Set state to exploded
-                    projectile.alpha = 255; // Make the projectile invisible.
-                    projectile.friendly = false; // Stop the bomb from hurting enemies.
-
-                    if (Main.netMode != NetmodeID.Server && !Filters.Scene["Shockwave"].IsActive())
-                    {
-                        Filters.Scene.Activate("Shockwave", projectile.Center).GetShader().UseColor(rippleCount, rippleSize, rippleSpeed).UseTargetPosition(projectile.Center);
-                    }
-                }
-
-                if (Main.netMode != NetmodeID.Server && Filters.Scene["Shockwave"].IsActive())
-                {
-                    float progress = (180f - projectile.timeLeft) / 60f;
-                    Filters.Scene["Shockwave"].GetShader().UseProgress(progress).UseOpacity(distortStrength * (1 - progress / 3f));
-                }
+                Main.NewText("Activating BlackHoleTwo");
+                Filters.Scene.Activate("ThePurifier:BlackHoleTwo", Projectile.Center).GetShader().UseTargetPosition(Projectile.Center);
+            } 
+            else
+            {
+                Filters.Scene["ThePurifier:BlackHoleTwo"].GetShader().UseTargetPosition(Projectile.Center);
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
-            if (Main.netMode != NetmodeID.Server && Filters.Scene["Shockwave"].IsActive())
+            if (Main.netMode != NetmodeID.Server && Filters.Scene["ThePurifier:BlackHoleTwo"].IsActive())
             {
-                Filters.Scene["Shockwave"].Deactivate();
+                Filters.Scene["ThePurifier:BlackHoleTwo"].Deactivate();
             }
         } 
-    } */
+    } 
 }

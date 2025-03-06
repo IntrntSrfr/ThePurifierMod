@@ -43,7 +43,7 @@ namespace ThePurifier.Content.Items
                 }
 
                 var shader = Filters.Scene["ThePurifier:BlackHole"].GetShader();
-                shader.Shader.Parameters["uPlayerScreenPosition"].SetValue(new Vector2(Main.screenWidth / 3, Main.screenHeight / 3));
+                shader.Shader.Parameters["uPlayerScreenPosition"].SetValue(new Vector2(Main.screenWidth,Main.screenHeight));
                 shader.Shader.Parameters["uScreenResolution"].SetValue(new Vector2(Main.screenWidth, Main.screenHeight));
                 Filters.Scene.Activate("ThePurifier:BlackHole");
                 

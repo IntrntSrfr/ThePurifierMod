@@ -15,4 +15,11 @@ Items: {
 		DisplayName: The Swoerd Two
 		Tooltip: ""
 	}
+
+	TheGun: {
+		DisplayName: The Gun
+		Tooltip: ""
+	}
 }
+
+Projectiles.TheProjectile.DisplayName: The Projectile
