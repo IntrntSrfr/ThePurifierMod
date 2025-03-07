@@ -11,8 +11,8 @@ namespace ThePurifier.Content.Projectiles
     { 
         public override void SetDefaults()
         {
-            Projectile.width = 50;
-            Projectile.height = 50;
+            Projectile.width = 25;
+            Projectile.height = 25;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = 1;
@@ -20,11 +20,6 @@ namespace ThePurifier.Content.Projectiles
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
         }
-                
-        private int rippleCount = 3;
-        private int rippleSize = 5;
-        private int rippleSpeed = 15;
-        private float distortStrength = 100f;
 
         public override void AI()
         {

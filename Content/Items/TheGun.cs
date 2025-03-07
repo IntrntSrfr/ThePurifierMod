@@ -30,13 +30,19 @@ namespace ThePurifier.Content.Items
             Item.UseSound = SoundID.Item11;
             // Set the projectile type and speed
             Item.shoot = ModContent.ProjectileType<TheProjectile>();
-            Item.shootSpeed = 16f;
+            Item.shootSpeed = 5f;
             Item.useAmmo = AmmoID.Bullet;
         }
 
         public override bool CanShoot(Player player)
         {
             return player.ownedProjectileCounts[ModContent.ProjectileType<TheProjectile>()] < 1;
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            Item.UseSound = CanShoot(player) ? SoundID.Item11 : null;
+            return CanShoot(player);
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
